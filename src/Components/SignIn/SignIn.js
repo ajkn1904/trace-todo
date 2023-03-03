@@ -41,7 +41,7 @@ const SignIn = () => {
     const handleGoogleBtn = () => {
         continueWithProvider(googleProvider)
             .then(res => {
-                const user = res.user;
+                const user = res;
                 console.log(user);
                 navigate(from, { replace: true })
 
@@ -53,7 +53,7 @@ const SignIn = () => {
     return (
         <>
             <h1 className='text-4xl font-bold text-center my-10'>Sign In</h1>
-            <h2 className='mx-auto text-xl w-[40vw] text-center bg-green-600 text-white p-2'>To add task please Sign In first</h2>
+            <h2 className='mx-auto text-xl w-[40vw] text-center bg-green-600 text-white p-2'>To see dashboard & add task please sign in first</h2>
             <div className='flex justify-center items-center mb-20 p-4 '>
 
                 <div className='card shadow-xl w-[95%] md:w-4/12 p-7 bg-gradient-to-r from-blue-50'>

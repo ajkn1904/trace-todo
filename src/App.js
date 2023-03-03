@@ -7,6 +7,7 @@ import SignIn from './Components/SignIn/SignIn';
 import DashboardLayout from './Components/DashboardLayout/DashboardLayout';
 import Dashboard from './Components/Dashboard/Dashboard';
 import AllTask from './Components/AllTask/AllTask';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 function App() {
 
@@ -18,10 +19,6 @@ function App() {
         {
           path: '/',
           element: <Home />
-        },
-        {
-          path: '/signUp',
-          element: <SignUp />
         },
         {
           path: '/signIn',
@@ -39,7 +36,7 @@ function App() {
     },
     {
       path: '/dashboard',
-      element: <DashboardLayout />,
+      element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
       children: [
         {
           path: '/dashboard',

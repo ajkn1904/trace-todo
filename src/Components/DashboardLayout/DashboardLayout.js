@@ -33,7 +33,7 @@ const DashboardLayout = () => {
 
                         <div>
 
-                            <li><Link className='font-bold bg-gradient-to-r from-blue-300 to-pink-100 my-3' to="/dashboard/allTask">Dashboard Home</Link></li>
+                            <li><Link className='font-bold bg-gradient-to-r from-blue-300 to-pink-100 my-3' to="/dashboard">Dashboard Home</Link></li>
                             <li><Link className='font-bold bg-gradient-to-r from-blue-300 to-pink-100 my-3' to="/dashboard/allTask">All Task</Link></li>
 
                         </div>

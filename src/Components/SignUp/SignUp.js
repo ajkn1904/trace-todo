@@ -23,6 +23,30 @@ const SignUp = () => {
 
 
 
+    const storeUsers = (name, email) => {
+        const user = {
+            name,
+            email
+        }
+
+        fetch('http://localhost:5000/users',
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setLoading(false);
+                navigate('/')
+            })
+    }
+
+
+
     const handleProfile = data => {
         const userInfo = {
             displayName: data.name
@@ -30,8 +54,8 @@ const SignUp = () => {
 
         userProfileUpdate(userInfo)
             .then(() => {
-                setLoading(false);
-                navigate('/')
+                setLoading(false)
+                storeUsers(data.name, data.email)
             })
             .catch((error) => {
                 setSignUpError(error.message)
@@ -68,7 +92,7 @@ const SignUp = () => {
                 const user = res.user
                 toast.success("Sign up successful")
                 setLoading(false)
-                navigate('/')
+                storeUsers(user.displayName, user.email)
             })
             .catch(error => {
                 setSignUpError(error.message)
@@ -80,7 +104,7 @@ const SignUp = () => {
     return (
         <>
             <h1 className='text-4xl font-bold text-center my-10'>Sign up</h1>
-            <h2 className='mx-auto text-xl w-[40vw] text-center bg-green-600 text-white p-2'>To add task please Sign Up first</h2>
+            <h2 className='mx-auto text-xl w-[40vw] text-center bg-green-600 text-white p-2'>To see dashboard & add task please sign up first</h2>
             <div className='flex justify-center items-center mb-20 p-4 '>
 
                 <div className='card shadow-xl w-[95%] md:w-4/12 p-7 bg-gradient-to-r from-blue-50'>

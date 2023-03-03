@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
+import { AuthContext } from '../Context/AuthProvider';
 
 
 const Navbar = () => {
 
+    const { user, userSignOut } = useContext(AuthContext)
+
+
+    const handleSignOut = () => {
+        userSignOut()
+            .then(() => { })
+            .cath(error => console.log(error))
+    }
+
     const menu = <>
         <li><Link to='/' className='font-bold text-md btn btn-info text-white m-2' >Home</Link></li>
         <li><Link to='/dashboard' className='font-bold text-md btn btn-info text-white m-2' >Dashboard</Link></li>
-        <li><Link to='/signUp' className='font-bold text-md btn btn-info text-white m-2' >SignUp</Link></li>
-        <li><Link to='/signIn' className='font-bold text-md btn btn-info text-white m-2' >SignIn</Link></li>
+
+        {
+            user?.uid ?
+                <li><Link to='/' className='font-bold text-md btn btn-info text-white m-2'onClick={handleSignOut} >Sign Out</Link></li>
+                :
+                <>
+                    <li><Link to='/signIn' className='font-bold text-md btn btn-info text-white m-2' >Sign In</Link></li>
+                    <li><Link to='/signUp' className='font-bold text-md btn btn-info text-white m-2' >Sign Up</Link></li>
+                </>
+        }
+
     </>
 
     return (
@@ -28,9 +47,9 @@ const Navbar = () => {
 
 
 
-            <div className="dropdown dropdown-end ml-40">
+            <div className="dropdown dropdown-end ml-52">
                 <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                    <HiOutlineMenuAlt3 className='h-6 w-6 font-bold'/>
+                    <HiOutlineMenuAlt3 className='h-6 w-6 font-bold' />
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                     {menu}
