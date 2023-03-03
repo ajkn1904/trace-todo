@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { BiSend } from 'react-icons/bi';
 
-const AddTask = () => {
+const AddTask = ({refetch}) => {
     const { user } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate()
@@ -18,6 +18,7 @@ const AddTask = () => {
             taskName: data.taskName,
             userName: user.displayName,
             email: user.email,
+            isCompleted: false,
             date: date.toDateString()
         }
         fetch('http://localhost:5000/task', {
@@ -31,6 +32,7 @@ const AddTask = () => {
             .then(data => {
                 console.log(data)
                 toast.success('Task added')
+                refetch()
                 setProcessing(false)
                 navigate('/dashboard')
             })

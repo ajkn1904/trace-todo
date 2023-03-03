@@ -26,10 +26,10 @@ const Dashboard = () => {
       
       
       <div className='w-[50%] md:w-[35%] lg:w-[20%] mx-auto my-16'>
-        <AddTask />
+        <AddTask refetch={refetch}/>
       </div>
 
-      <AllTask data={data}/>
+      <AllTask data={data} refetch={refetch}/>
     </div>
   );
 };
