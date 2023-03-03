@@ -2,8 +2,13 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../Context/AuthProvider';
 import { toast } from 'react-hot-toast';
 
-const AllTask = ({ data, refetch }) => {
+const AllTask = ({ data, refetch, isLoading }) => {
     const { user } = useContext(AuthContext);
+
+    if (isLoading) {
+        return <p className='text-red-700 w-52 mx-auto min-h-[80vh] text-center'>Loading</p>
+    }
+
 
     const isTaskComplete = (url) => {
         fetch(url, {
@@ -33,6 +38,27 @@ const AllTask = ({ data, refetch }) => {
 
 
 
+    const handleDelete = id => {
+        const doDelete = window.confirm('Do you want to delete this task?');
+        if (doDelete) {
+            fetch(`http://localhost:5000/task/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount === 1) {
+                        toast.error("Deleted Successfully")
+                        refetch()
+                    }
+                })
+        }
+    }
+
+
 
     return (
         <div className='w-[85vw] mx-auto'>
@@ -57,7 +83,7 @@ const AllTask = ({ data, refetch }) => {
                                 </button>
                             }
 
-                            <button className='btn btn-xs bg-red-200 text-black hover:btn-error'>
+                            <button className='btn btn-xs bg-red-200 text-black hover:btn-error' onClick={() => handleDelete(taskList._id)}>
                                 delete
                             </button>
                         </div>

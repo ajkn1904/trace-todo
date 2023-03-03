@@ -1,9 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { AuthContext } from '../Context/AuthProvider';
-import { Link, useNavigate } from 'react-router-dom';
-import { BiSend } from 'react-icons/bi'
-import { toast } from 'react-hot-toast';
+import React from 'react';
 import AddTask from '../AddTask/AddTask';
 
 const Home = () => {

@@ -29,7 +29,7 @@ const Dashboard = () => {
         <AddTask refetch={refetch}/>
       </div>
 
-      <AllTask data={data} refetch={refetch}/>
+      <AllTask data={data} refetch={refetch} isLoading={isLoading}/>
     </div>
   );
 };
