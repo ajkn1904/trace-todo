@@ -21,6 +21,10 @@ function App() {
           element: <Home />
         },
         {
+          path: '/dashboard',
+          element: <PrivateRoute><Dashboard /></PrivateRoute>
+        },
+        {
           path: '/signIn',
           element: <SignIn />
         },
@@ -33,25 +37,8 @@ function App() {
           element: <p className='text-5xl text-center font-bold'>404!!! Page Not Found</p>
         }
       ]
-    },
-    {
-      path: '/dashboard',
-      element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
-      children: [
-        {
-          path: '/dashboard',
-          element: <Dashboard />
-        },
-        {
-          path: '/dashboard/allTask',
-          element: <AllTask />
-        },
-        {
-          path: '/dashboard/*',
-          element: <p className='text-5xl text-center font-bold'>404!!! Page Not Found</p>
-        }
-      ]
     }
+    
   ])
 
   return (
