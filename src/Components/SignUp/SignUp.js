@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../Context/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 
 const SignUp = () => {
@@ -9,14 +12,68 @@ const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signUpError, setSignUpError] = useState('');
 
+    const { createUser, userProfileUpdate, continueWithProvider, loading, setLoading } = useContext(AuthContext)
+    const goggleProvider = new GoogleAuthProvider();
+    const navigate = useNavigate()
 
 
-    const handleSignUp = () => [
-        console.log('sign up please')
-    ]
+    if (loading) {
+        return <p className='text-red-700 w-52 mx-auto min-h-[80vh] text-center'>Loading</p>
+    }
+
+
+
+    const handleProfile = data => {
+        const userInfo = {
+            displayName: data.name
+        }
+
+        userProfileUpdate(userInfo)
+            .then(() => {
+                setLoading(false);
+                navigate('/')
+            })
+            .catch((error) => {
+                setSignUpError(error.message)
+                setLoading(false)
+            })
+    }
+
+
+
+    const handleSignUp = data => {
+        if (data.password !== data.confirmPassword) {
+            return setSignUpError("Password didn't match. Please try again!")
+        }
+
+        setSignUpError('');
+        createUser(data.email, data.password)
+            .then(res => {
+                const user = res.user
+                console.log(user);
+                toast.success("SighUo Successful");
+                handleProfile(data)
+            })
+            .catch(error => {
+                setSignUpError(error.message);
+                setLoading(false)
+            })
+    }
+
+
 
     const handleGoogleBtn = () => {
-        console.log('google');
+        continueWithProvider(goggleProvider)
+            .then(res => {
+                const user = res.user
+                toast.success("Sign up successful")
+                setLoading(false)
+                navigate('/')
+            })
+            .catch(error => {
+                setSignUpError(error.message)
+                setLoading(false)
+            })
     }
 
 

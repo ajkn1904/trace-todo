@@ -1,20 +1,52 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../Context/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const SignIn = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signInError, setSignInError] = useState('');
+    const { userSignIn, continueWithProvider, loading, setLoading } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider()
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathName || '/';
 
 
-    const handleSignUp = () => {
+    if (loading) {
+        return <p className='text-red-700 w-52 mx-auto min-h-[80vh] text-center'>Loading</p>
+    }
 
+
+    const handleSignUp = data => {
+        userSignIn(data.email, data.password)
+            .then(res => {
+                const user = res.user
+                console.log(user);
+                setSignInError('')
+                navigate(from, { replace: true })
+
+            })
+            .catch(error => {
+                setSignInError(error.message)
+                setLoading(false)
+
+            })
     }
 
 
     const handleGoogleBtn = () => {
+        continueWithProvider(googleProvider)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+                navigate(from, { replace: true })
 
+            })
+            .catch(error => setSignInError(error.message))
     }
 
 

@@ -6,7 +6,7 @@ import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWith
 export const AuthContext = createContext();
 const auth = getAuth(app)
 
-const Authprovider = ({children}) => {
+const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -47,6 +47,9 @@ const Authprovider = ({children}) => {
         return () => unSubscribe()
     }, [])
 
+
+
+
     const authInfo = {
         user,
         createUser,
@@ -66,4 +69,4 @@ const Authprovider = ({children}) => {
     );
 };
 
-export default Authprovider;
+export default AuthProvider;
