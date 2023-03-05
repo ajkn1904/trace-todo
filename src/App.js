@@ -4,9 +4,7 @@ import Main from './Components/Main/Main';
 import Home from './Components/Home/Home';
 import SignUp from './Components/SignUp/SignUp';
 import SignIn from './Components/SignIn/SignIn';
-import DashboardLayout from './Components/DashboardLayout/DashboardLayout';
 import Dashboard from './Components/Dashboard/Dashboard';
-import AllTask from './Components/AllTask/AllTask';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 function App() {

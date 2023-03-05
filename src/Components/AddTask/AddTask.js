@@ -21,7 +21,7 @@ const AddTask = ({refetch}) => {
             isCompleted: false,
             date: date.toDateString()
         }
-        fetch('http://localhost:5000/task', {
+        fetch(' https://trace-todo-server.vercel.app/task', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

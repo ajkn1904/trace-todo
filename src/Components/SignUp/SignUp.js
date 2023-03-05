@@ -29,7 +29,7 @@ const SignUp = () => {
             email
         }
 
-        fetch('http://localhost:5000/users',
+        fetch(' https://trace-todo-server.vercel.app/users',
             {
                 method: 'POST',
                 headers: {

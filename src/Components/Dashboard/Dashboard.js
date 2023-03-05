@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../Context/AuthProvider';
 import Statistics from '../Statistics/Statistics';
@@ -12,7 +12,7 @@ const Dashboard = () => {
   const { data = [], isLoading, refetch } = useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/task?email=${user?.email}`)
+      const res = await fetch(` https://trace-todo-server.vercel.app/task?email=${user?.email}`)
       const data = res.json()
       return data
     }
@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Statistics />
+      <Statistics data={data}/>
       
       
       <div className='w-[50%] md:w-[35%] lg:w-[20%] mx-auto my-16'>
