@@ -115,9 +115,9 @@ const AllTask = ({ data, refetch, isLoading }) => {
                                 }
 
 
-                                <button className='btn btn-xs bg-blue-200 text-black hover:btn-info mr-3'>
+                                {/* <button className='btn btn-xs bg-blue-200 text-black hover:btn-info mr-3'>
                                     edit
-                                </button>
+                                </button> */}
 
 
 
